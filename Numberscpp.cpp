@@ -1,11 +1,10 @@
+
 #include "Numbers.h"
 #include <iostream>
 #include <fstream>
 
-
 using namespace std;
-namespace simple_shapes
-{
+namespace simple_shapes {
 	void Init(container &c);
 	void Clear(container &c);
 	complex* InComplex(complex &p, ifstream &ifst);
@@ -38,13 +37,13 @@ namespace simple_shapes
 
 	complex * InComplex(complex & p, ifstream & ifst)
 	{
-		ifst >> p.real >> p.imaginary;
+		ifst >> p.real >> p.imaginary >> p.units;
 		return &p;
 	}
 
 	simple * InSimple(simple & t, ifstream &ifst)
 	{
-		ifst >> t.numerator >> t.denominator;
+		ifst >> t.numerator >> t.denominator >> t.units;
 		return &t;
 	}
 
@@ -74,12 +73,12 @@ namespace simple_shapes
 		if (p->imaginary < 0)
 		{
 			ofst << "It is Complex number: действительная часть = " << p->real
-				<< ", мнимая часть = " << p->imaginary << endl << p->real << p->imaginary << "i";
+				<< ", мнимая часть = " << p->imaginary << endl << p->real << p->imaginary << "i" << ", еденица измерений - " << p->units;
 		}
 		else
 		{
 			ofst << "It is Complex number: действительная часть = " << p->real
-				<< ", мнимая часть = " << p->imaginary << endl << p->real << "+" << p->imaginary << "i";
+				<< ", мнимая часть = " << p->imaginary << endl << p->real << "+" << p->imaginary << "i" << ", еденица измерений - " << p->units;
 		}
 	}
 	void Out(container & c, ofstream &ofst)
@@ -145,7 +144,7 @@ namespace simple_shapes
 	void OutSimple(simple * t, ofstream &ofst)
 	{
 		ofst << "It is Simple number: числитель = " << t->numerator
-			<< ", знаменатель = " << t->denominator << endl << t->numerator << "/" << t->denominator;
+			<< ", знаменатель = " << t->denominator << endl << t->numerator << "/" << t->denominator << ", еденица измерений - " << t->units;
 	}
 	void In(container &c, ifstream &ifst)
 
