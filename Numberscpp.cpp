@@ -1,3 +1,4 @@
+
 #include "Numbers.h"
 #include <iostream>
 #include <fstream>
@@ -15,6 +16,25 @@ namespace simple_shapes {
 	void Out(numbers *s, ofstream &ofst);
 	int addnode(container &c, ifstream &ifst);
 	void OutSimple(simple *t, ofstream &ofst);
+
+	void Out_only_complex(container &c, ofstream &ofst);
+
+	void Out_only_complex(container &c, ofstream &ofst)
+	{
+		ofst << "Only complex." << endl;
+		Node* current = c.Top;
+		for (int i = 0; i < c.count; i++)
+		{
+			ofst << i << ": ";
+			if (current->data->key == type::COMPLEX)
+				Out(current->data, ofst);
+			else
+				ofst << endl;
+			current = current->Next;
+
+		}
+	}
+
 	complex * InComplex(complex & p, ifstream & ifst)
 	{
 		ifst >> p.real >> p.imaginary >> p.units;
