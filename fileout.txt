@@ -1,10 +1,10 @@
 Filled container. 
- Container contains 2 elements.
-0: It is Complex number: действительная часть = 4, мнимая часть = 5
+ Container contains 3 elements.
+0: It is Polar coordinates number: угол = 15, расстояние до точки = 36
+(36,15°)
+1: It is Complex number: действительная часть = 4, мнимая часть = 5
 4+5i
-значение = 6.40312
-1: It is Simple number: числитель = 9, знаменатель = 3
-9/3
-значение = 3
+2: It is Simple number: числитель = 0, знаменатель = 3
+0/3
 Empty container. 
  Container contains 0 elements.
