@@ -1,14 +1,16 @@
 enum type { COMPLEX, SIMPLE };
 struct complex {
 	type key;
+	char units[100];
 	float real;
 	float imaginary;
 };
 struct simple {
 
 	type key;
-	float numerator;
-	float denominator;
+	char units[100];
+	int numerator;
+	int denominator;
 };
 struct numbers {
 	type key;
