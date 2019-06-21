@@ -7,8 +7,8 @@ struct complex {
 struct simple {
 
 	type key;
-	float numerator;
-	float denominator;
+	int numerator;
+	int denominator;
 };
 struct numbers {
 	type key;

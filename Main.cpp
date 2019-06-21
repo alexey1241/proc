@@ -1,7 +1,6 @@
 #include "Numbers.h"
 #include <iostream>
 #include <fstream>
-
 using namespace std;
 namespace simple_shapes {
 	void Init(container &c);
@@ -15,8 +14,12 @@ namespace simple_shapes {
 	void Out(Node *s, ofstream &ofst);
 	int addlist(container &c, ifstream &ifst);
 	void OutSimple(simple *t, ofstream &ofst);
+
+	void Out_only_complex(container &c, ofstream &ofst);
+
 }
 using namespace simple_shapes;
+
 int main(int argc, char* argv[])
 {
 	int a;
@@ -35,7 +38,10 @@ int main(int argc, char* argv[])
 	In(c, ifst);
 	ofst << "Filled container. " << endl;
 
-	Out(c, ofst);
+	/*Out(c, ofst);*/
+
+	Out_only_complex(c, ofst);
+
 	Clear(c);
 	ofst << "Empty container. " << endl;
 	Out(c, ofst);
