@@ -15,49 +15,15 @@ namespace simple_shapes {
 	void Out(numbers *s, ofstream &ofst);
 	int addnode(container &c, ifstream &ifst);
 	void OutSimple(simple *t, ofstream &ofst);
-
-	float numbers_s(simple *t);
-	float numbers_s(complex *p);
-	float numbers_s(simple *t)
-	{
-		float numbers1 = (t->numerator / t->denominator);
-		return numbers1;
-	}
-
-	float numbers_s(complex *p)
-	{
-		float numbers2 = sqrt(pow((p->real),2) + pow((p->imaginary),2));
-		return numbers2;
-	}
-	float numbers_s(numbers *s)
-	{
-		switch (s->key)
-		{
-		case SIMPLE:
-		{
-			return numbers_s((simple*)s);
-		}break;
-		case COMPLEX:
-		{
-			return numbers_s((complex*)s);
-		}break;
-		default:
-		{
-			return -1;
-		}
-		break;
-		}
-	}
-
 	complex * InComplex(complex & p, ifstream & ifst)
 	{
-		ifst >> p.real >> p.imaginary;
+		ifst >> p.real >> p.imaginary >> p.units;
 		return &p;
 	}
 
 	simple * InSimple(simple & t, ifstream &ifst)
 	{
-		ifst >> t.numerator >> t.denominator;
+		ifst >> t.numerator >> t.denominator >> t.units;
 		return &t;
 	}
 
@@ -87,12 +53,12 @@ namespace simple_shapes {
 		if (p->imaginary < 0)
 		{
 			ofst << "It is Complex number: действительная часть = " << p->real
-				<< ", мнимая часть = " << p->imaginary << endl << p->real << p->imaginary << "i";
+				<< ", мнимая часть = " << p->imaginary << endl << p->real << p->imaginary << "i" << ", еденица измерений - " << p->units;
 		}
 		else
 		{
 			ofst << "It is Complex number: действительная часть = " << p->real
-				<< ", мнимая часть = " << p->imaginary << endl << p->real << "+" << p->imaginary << "i";
+				<< ", мнимая часть = " << p->imaginary << endl << p->real << "+" << p->imaginary << "i" << ", еденица измерений - " << p->units;
 		}
 	}
 	void Out(container & c, ofstream &ofst)
@@ -103,7 +69,6 @@ namespace simple_shapes {
 		for (int j = 0; j < c.count; j++) {
 			ofst << j << ": ";
 			Out(current->data, ofst);
-			ofst << "значение = " << numbers_s(current->data) << endl;
 			current = current->Next;
 		}
 	}
@@ -159,7 +124,7 @@ namespace simple_shapes {
 	void OutSimple(simple * t, ofstream &ofst)
 	{
 		ofst << "It is Simple number: числитель = " << t->numerator
-			<< ", знаменатель = " << t->denominator << endl << t->numerator << "/" << t->denominator;
+			<< ", знаменатель = " << t->denominator << endl << t->numerator << "/" << t->denominator << ", еденица измерений - " << t->units;
 	}
 	void In(container &c, ifstream &ifst)
 
@@ -178,6 +143,7 @@ namespace simple_shapes {
 			complex* p = new complex;
 			s = (numbers*)InComplex(*p, ifst);
 			s->key = COMPLEX;
+			/*ifst >> s->real >> s->imaginary;*/
 			return s;
 		}
 		else if (key == 2)
@@ -185,6 +151,7 @@ namespace simple_shapes {
 			simple* t = new simple;
 			s = (numbers*)InSimple(*t, ifst);
 			s->key = SIMPLE;
+			/*ifst >> s->numerator >> s->denominator;*/
 			return s;
 		}
 		else

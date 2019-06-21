@@ -1,7 +1,6 @@
 #include "Numbers.h"
 #include <iostream>
 #include <fstream>
-
 using namespace std;
 namespace simple_shapes {
 	void Init(container &c);
