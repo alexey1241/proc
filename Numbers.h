@@ -1,6 +1,4 @@
-#include <fstream>
-
-enum type { COMPLEX, SIMPLE, POLCOOR };
+enum type { COMPLEX, SIMPLE };
 struct complex {
 	type key;
 	float real;
@@ -9,13 +7,8 @@ struct complex {
 struct simple {
 
 	type key;
-	int numerator;
-	int denominator;
-};
-struct polcoor {
-	type key;
-	float corner;
-	int distance;
+	float numerator;
+	float denominator;
 };
 struct numbers {
 	type key;

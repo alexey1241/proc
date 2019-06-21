@@ -2,14 +2,12 @@
 #include <iostream>
 #include <fstream>
 
-
 using namespace std;
 namespace simple_shapes {
 	void Init(container &c);
 	void Clear(container &c);
 	complex* InComplex(complex &p, ifstream &ifst);
 	simple* InSimple(simple &t, ifstream &ifst);
-	polcoor* InPolcoor(polcoor &l, ifstream &ifst);
 	numbers* In(ifstream &ifst);
 	void In(container &c, ifstream &ifst);
 	void OutComplex(complex *p, ofstream &ofst);
@@ -17,7 +15,39 @@ namespace simple_shapes {
 	void Out(numbers *s, ofstream &ofst);
 	int addnode(container &c, ifstream &ifst);
 	void OutSimple(simple *t, ofstream &ofst);
-	void OutPolcoor(polcoor *l, ofstream &ofst);
+
+	float numbers_s(simple *t);
+	float numbers_s(complex *p);
+	float numbers_s(simple *t)
+	{
+		float numbers1 = (t->numerator / t->denominator);
+		return numbers1;
+	}
+
+	float numbers_s(complex *p)
+	{
+		float numbers2 = sqrt(pow((p->real),2) + pow((p->imaginary),2));
+		return numbers2;
+	}
+	float numbers_s(numbers *s)
+	{
+		switch (s->key)
+		{
+		case SIMPLE:
+		{
+			return numbers_s((simple*)s);
+		}break;
+		case COMPLEX:
+		{
+			return numbers_s((complex*)s);
+		}break;
+		default:
+		{
+			return -1;
+		}
+		break;
+		}
+	}
 
 	complex * InComplex(complex & p, ifstream & ifst)
 	{
@@ -29,12 +59,6 @@ namespace simple_shapes {
 	{
 		ifst >> t.numerator >> t.denominator;
 		return &t;
-	}
-
-	polcoor * InPolcoor(polcoor & l, ifstream &ifst)
-	{
-		ifst >> l.corner >> l.distance;
-		return &l;
 	}
 
 	void Init(container & c)
@@ -79,6 +103,7 @@ namespace simple_shapes {
 		for (int j = 0; j < c.count; j++) {
 			ofst << j << ": ";
 			Out(current->data, ofst);
+			ofst << "значение = " << numbers_s(current->data) << endl;
 			current = current->Next;
 		}
 	}
@@ -91,10 +116,6 @@ namespace simple_shapes {
 			break;
 		case SIMPLE:
 			OutSimple((simple*)s, ofst);
-			ofst << endl;
-			break;
-		case POLCOOR:
-			OutPolcoor((polcoor*)s, ofst);
 			ofst << endl;
 			break;
 		default:
@@ -140,11 +161,6 @@ namespace simple_shapes {
 		ofst << "It is Simple number: числитель = " << t->numerator
 			<< ", знаменатель = " << t->denominator << endl << t->numerator << "/" << t->denominator;
 	}
-	void OutPolcoor(polcoor * l, ofstream &ofst)
-	{
-		ofst << "It is Polar coordinates number: угол = " << l->corner
-			<< ", расстояние до точки = " << l->distance << endl << "(" << l->distance << "," << l->corner << "°)";
-	}
 	void In(container &c, ifstream &ifst)
 
 	{
@@ -171,13 +187,7 @@ namespace simple_shapes {
 			s->key = SIMPLE;
 			return s;
 		}
-		else if (key == 3)
-		{
-			polcoor* l = new polcoor;
-			s = (numbers*)InPolcoor(*l, ifst);
-			s->key = POLCOOR;
-			return s;
-		}
+		else
 			return 0;
 	}
 }
